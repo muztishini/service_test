@@ -61,6 +61,7 @@ def answer(request, riddle_id, kits_id):
     count_n = 0
     return render(request, "result.html", context=context)
 
+
 class RegisterUser(CreateView):
     form_class = UserCreationForm
     template_name = 'register.html'
