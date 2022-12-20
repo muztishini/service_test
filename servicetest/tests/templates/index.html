@@ -2,22 +2,41 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
 
-<a href="{% url 'register' %}">Регистрация</a>
+{% if request.user.is_authenticated %}
+    <li> {{user.username}} | <a href="{% url 'logout' %}">Выйти</a></li>
+{% else %}
+    <li><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+{% endif %}
+
+<hr>
 
 <h1>Доступные тесты</h1>
 
 {% if list_kits %}
 
-<ul>
-  {% for kits in list_kits %}
+    <ul>
+      {% for kits in list_kits %}
+        {% if request.user.is_authenticated %}
+          <li>
+            <a href="{% url 'detail' kits.id %}"> {{ kits.kits_text }} </a>
+          </li>
+        {% else %}
+            <li>
+                {{ kits.kits_text }}
+            </li>
 
-  <li>
-    <a href="{% url 'detail' kits.id %}"> {{ kits.kits_text }} </a>
-  </li>
+        {% endif %}
 
-  {% endfor %}
-</ul>
+      {% endfor %}
+    {% if request.user.is_authenticated %}
+        <hr>
+
+        {% else %}
+    <hr>
+    <strong>Для прохождения тестов необходимо зарегистрироваться или войти</strong>
+        {% endif %}
+    </ul>
 
 {% else %}
-<p>Прямо сейчас никаких тестов нет.</p>
+    <p>Прямо сейчас никаких тестов нет.</p>
 {% endif %}
