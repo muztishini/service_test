@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.forms import UserCreationForm
 from .models import Riddle, Option, Kits
+from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -57,3 +60,19 @@ def answer(request, riddle_id, kits_id):
     count_v = 0
     count_n = 0
     return render(request, "result.html", context=context)
+
+class RegisterUser(CreateView):
+    form_class = UserCreationForm
+    template_name = 'register.html'
+        
+    def get(self, request):
+        context = {
+            'form' : self.form_class
+        }
+        return render(request, self.template_name, context)
+    
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('index')
+    
