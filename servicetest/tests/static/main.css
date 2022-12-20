@@ -45,3 +45,7 @@ p, div.button {
 p.error-message {
     color: lightcoral;
 }
+
+.errorlist{
+    color: tomato;
+}

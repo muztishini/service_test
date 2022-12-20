@@ -8,9 +8,10 @@
 </head>
 <body>
 <form method="post">
+
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button type="submit">Войти</button>
 </form>
 <a href="{% url 'index' %}">Home</a>
 </body>
