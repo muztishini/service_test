@@ -1,0 +1,25 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+<script type="text/javascript" src={% static "script.js" %}></script>
+
+<h1>{{ kits.kits_text }}</h1>
+<h2>{{ riddle.riddle_text }}</h2>
+
+
+<p class="error-message" id="Err">
+    <strong>{{ error_message }}</strong>
+</p>
+
+
+<form action="/answer/{{kits.id}}/{{riddle.id}}/" method="post" name="form_name" id="myform" onsubmit="return validate ()">
+    {% csrf_token %}
+    {% for option in riddle.option_set.all %}
+        <input type="checkbox" name="option" id="option{{ forloop.counter }}" class="checkbox input" value="{{ option.id }}" />
+        <label for="option{{ forloop.counter }}">{{ option.text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Ответ" />
+</form>
+
+<a href="{% url 'index' %}">Home</a>
+

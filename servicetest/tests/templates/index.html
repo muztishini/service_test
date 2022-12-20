@@ -1,0 +1,21 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+
+<h1>Доступные тесты</h1>
+
+{% if list_kits %}
+
+<ul>
+  {% for kits in list_kits %}
+
+  <li>
+    <a href="{% url 'detail' kits.id %}"> {{ kits.kits_text }} </a>
+  </li>
+
+  {% endfor %}
+</ul>
+
+{% else %}
+<p>Прямо сейчас никаких тестов нет.</p>
+{% endif %}

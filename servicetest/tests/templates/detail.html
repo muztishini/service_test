@@ -1,0 +1,20 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+
+<body>
+  <h1>Тест №{{ num_kits }}</h1>
+ 
+   {% for item in detail_list %}
+  <ul>
+    <li>
+      {{ item.riddle_text }}
+    </li>
+  </ul>
+  {% endfor %}
+
+  <p><a href="{% url 'answer' num_kits ki %}">Начнём?</a></p>
+<hr>
+    <a href="{% url 'index' %}">Home</a>
+</body>
+

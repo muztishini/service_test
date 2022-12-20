@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+    <title>Результат</title>
+</head>
+<body>
+<h1>Результат:</h1>
+<h3 style="color: green;">Верных ответов = {{message_v}}</h3>
+<h3 style="color: red;">Неверных ответов = {{message_n}}</h3>
+<h3>Процент правильных ответов = {{perc}}%</h3>
+<a href="/">Home</a>
+</body>
+</html>
