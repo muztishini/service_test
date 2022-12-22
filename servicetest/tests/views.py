@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import CreateView
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
 from .models import Riddle, Option, Kits
@@ -33,7 +33,6 @@ count_n = 0
 
 def answer(request, riddle_id, kits_id):
     global count_v, count_n
-    # count_riddle = Riddle.objects.all().count()
 
     if riddle_id <= kits_id * 3:
         riddle = get_object_or_404(Riddle, pk=riddle_id)
@@ -47,12 +46,9 @@ def answer(request, riddle_id, kits_id):
         else:
             if option.correct:
                 count_v += 1
-                # return render(request, "index.html", {"latest_riddles": Riddle.objects.order_by('id'),
-                #                                       "message": "Прекрасно! Правильный ответ!"})
                 return HttpResponseRedirect(f"/answer/{kits_id}/{riddle_id + 1}")
             else:
                 count_n += 1
-                # return render(request, 'answer.html', {'riddle': riddle, 'error_message': 'Неправильный ответ!'})
                 return HttpResponseRedirect(f"/answer/{kits_id}/{riddle_id + 1}")
 
     if count_n != 0:
